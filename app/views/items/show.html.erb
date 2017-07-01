@@ -7,11 +7,16 @@
         </div>
         <div class="panel-body">
           <p class="item-title"><%= @item.name %></p>
+          
           <div class="buttons text-center">
-            <% if logged_in? %>
-              <%= render 'ownerships/want_button', item: @item %>
-            <% end%>
+            <div class="btn-group" role="group">
+               <% if logged_in? %>
+                <button><%= render 'ownerships/want_button', item: @item %></button>
+                <button><%= render 'ownerships/have_button', item: @item %></button>
+               <% end %>
+            </div>
           </div>
+          
         </div>
       </div>
     </div>
@@ -36,6 +41,9 @@
           Haveしたユーザ
         </div>
         <div class="panel-body">
+          <% @have_users.each do |user| %>
+            <%= link_to user.name, user_path(user) %>
+          <% end %> 
         </div>
       </div>
     </div>

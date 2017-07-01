@@ -16,7 +16,14 @@ class OwnershipsController < ApplicationController
       flash[:success] = '商品をWantしました。'
     end
     
+    # Have関係として保存
+    if params[:type] == 'Have'
+      current_user.have(@item)
+      flash[:success] = '商品をHaveしました。'
+    end    
+    
     redirect_back(fallback_location: root_path)
+    
   end
 
   def destroy
@@ -26,6 +33,11 @@ class OwnershipsController < ApplicationController
       current_user.unwant(@item)
       flash[:success] = '商品のWantを解除しました。'
     end
+    
+    if params[:type] == 'Have'
+      current_user.unhave(@item)
+      flash[:success] = '商品のHveを解除しました。'
+    end    
     
     redirect_back(fallback_location: root_path)    
 
